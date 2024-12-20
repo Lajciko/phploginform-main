@@ -1,0 +1,17 @@
+{
+    "name": "lajciko/phploginform-main",
+    "description": "Prosty formularz rejestracji i logowania w oparciu o PHP i mySQL",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Lajciko\\PhploginformMain\\": "class/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lajciko",
+            "email": "Alantrella10@gmail.com"
+        }
+    ],
+    "require": {}
+}
