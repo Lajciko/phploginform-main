@@ -21,9 +21,9 @@
                     <input type="email" name="emailInput" id="emailInput" class="form-control mb-3">
                     <!-- pole na hasło oraz labelka do niego -->
                     <label for="passwordInput" class="form-label mb-1">Hasło:</label>
-                    <input type="password" name="passwordInput" id="passwordInput" class="form-control mb-3">
+                    <input type="password" name="passwordInput" id="passwordInput" class="form-control mb-3" required>
                     <!-- guzik wyślij -->
-                    <input type="submit" name="submit" value="Zarejestruj" class="btn btn-primary w-100"> 
+                    <input type="submit" name="submit" value="Zarejestruj" class="btn btn-primary w-100" required> 
                 </form>
             </div>
         </div>

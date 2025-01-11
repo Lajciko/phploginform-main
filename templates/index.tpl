@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    {include file="header.tpl"}
     <!-- kontener bootstrapa na siatkę kolumn -->
     <div class="container">
         <div class="col-8 col-lg-4 offset-2 offset-lg-4 text-center pt-3">
@@ -20,14 +21,15 @@
             <a href="login">
                 <button type="button" class="btn btn-primary btn-lg w-100 mb-5">Zaloguj</button>
             </a>
-            <?php if(isset($_SESSION['user'])): ?>
-                <p>Jesteś zalogowany jako: <?php echo $_SESSION['user']->getEmail(); ?></p>
+            {if $isUserLogged}
+                <p>Jesteś zalogowany jako: {$user}</p>
                 <a href="logout">
                     <button type="button" class="btn btn-primary btn-lg w-100 mb-5">Wyloguj</button>
                 </a>
-            <?php endif; ?>
+            {/if}
         </div>
     </div>
+{include file="footer.tpl"}    
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
