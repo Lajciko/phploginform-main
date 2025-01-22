@@ -31,7 +31,7 @@ class User
                 die("Błąd konstruktora - niepoprawne hasło");
             }
         } else {
-            //nie ma takiego użytkownika. 
+            //nie ma takiego użytkownika 
             die("Błąd konstruktora - nie ma takiego użytkownika");
         }
     }

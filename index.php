@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once __DIR__ . '/vendor/autoload.php';
 require_once('class/User.php');
 
@@ -6,45 +9,65 @@ session_start();
 use Steampixel\Route;
 use Smarty\Smarty;
 
+//smarty
 $s = new Smarty();
 $s->setTemplateDir('templates');
 $s->setCompileDir('templates_c');
-$s->setCompileDir('cache');
-$s->setCompileDir('configs');
+$s->setCacheDir('cache');
+$s->setConfigDir('configs');
 
 Route::add('/', function() {
+
     global $s;
     $isUserLogged = isset($_SESSION['user']);
-    if ($isUserLogged) {
+
+    if($isUserLogged){
         $s->assign('isUserLogged', true);
-        $s->assign('', $_SESSION['user']->getEmail());
+        $s->assign('user', $_SESSION['user']->getEmail());
     } else {
         $s->assign('isUserLogged', false);
     }
-    $s->display('index.php');
+
+    $s->display('index.tpl');
 });
+
 Route::add('/login', function() {
-    include('templates/login.php');
-});
-Route::add('/login', function() {
-    include('templates/login.php');
-}, 'post');    
+    global $s;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $email = $_POST['emailInput'];
+        $password = $_POST['passwordInput'];
+        $user = new User($email, $password);
+        $user->registerSession();
+        $s->assign('formSubmitted', true);
+        $s->assign('userEmail', $email);
+    } else {
+        $s->assign('formSubmitted', false);
+    }
+    $s->display('login.tpl');
+}, ['get', 'post']);
+
 Route::add('/register', function() {
-    include('templates/register.php');
-});
-Route::add('/register', function() {
-    include('templates/register.php');
-}, 'post');    
+    global $s;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $email = $_POST['emailInput'];
+        $password = $_POST['passwordInput'];
+        User::register($email, $password);
+        $s->assign('formSubmitted', true);
+    } else {
+        $s->assign('formSubmitted', false);
+    }
+    $s->display('register.tpl');
+}, ['get', 'post']);
+
 Route::add('/logout', function() {
-    //include('templates/logout.php');
     global $s;
     $isUserLogged = isset($_SESSION['user']);
-    if ($isUserLogged) {
+    if($isUserLogged){
         session_destroy();
-        $s->assign('Message', 'Zostałeś wylogowany');
+        $s->assign('message', 'Zostałeś wylogowany');
     }
     $s->display('logout.tpl');
 });
 
 Route::run('/phploginform');
-?>
+?> 

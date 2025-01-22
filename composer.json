@@ -1,16 +1,16 @@
 {
-    "name": "lajciko/phploginform-main",
+    "name": "machinacyfrowa/php-login-form",
     "description": "Prosty formularz rejestracji i logowania w oparciu o PHP i mySQL",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Lajciko\\PhploginformMain\\": "class/"
+            "Machinacyfrowa\\PhpLoginForm\\": "class/"
         }
     },
     "authors": [
         {
-            "name": "Lajciko",
-            "email": "Alantrella10@gmail.com"
+            "name": "Paweł Zawadzki",
+            "email": "pawel.zawadzki2@teb.edu.pl"
         }
     ],
     "require": {
