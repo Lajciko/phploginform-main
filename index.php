@@ -46,5 +46,6 @@ Route::add('/logout', function() {
     $s->display('logout.tpl');
 });
 
+
 Route::run('/phploginform');
 ?>
