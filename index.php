@@ -83,6 +83,10 @@ Route::add('/saveProfile', function() {
         $lastName = $_POST['lastName'];
         $birthDate = $_POST['birthDate'];
         $profilePicture = $_FILES['profilePicture']['name'];
+        
+        // Zaktualizuj dane użytkownika w bazie danych
+        // ...
+
         header('Location: /phploginform/profile');
         exit();
     } else {
@@ -121,6 +125,8 @@ Route::add('/logout', function() {
     }
     $s->display('logout.tpl');
 });
+define('BASE_URL', '/phploginform');
+$s->assign('BASE_URL', BASE_URL);
 
 Route::run('/phploginform');
 ?>
