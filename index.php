@@ -78,15 +78,17 @@ Route::add('/saveProfile', function() {
     global $s;
     $isUserLogged = isset($_SESSION['user']);
     if($isUserLogged && $_SERVER['REQUEST_METHOD'] === 'POST') {
-
+        // Tutaj dodaj kod do zapisywania danych profilu
+        // Na przykład:
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];
         $birthDate = $_POST['birthDate'];
         $profilePicture = $_FILES['profilePicture']['name'];
-        
+
         // Zaktualizuj dane użytkownika w bazie danych
         // ...
 
+        // Przekieruj z powrotem na stronę profilu
         header('Location: /phploginform/profile');
         exit();
     } else {
@@ -99,15 +101,17 @@ Route::add('/changePassword', function() {
     global $s;
     $isUserLogged = isset($_SESSION['user']);
     if($isUserLogged && $_SERVER['REQUEST_METHOD'] === 'POST') {
-
+        // Tutaj dodaj kod do zmiany hasła
+        // Na przykład:
         $newPassword = $_POST['newPassword'];
         $confirmPassword = $_POST['confirmPassword'];
 
         if ($newPassword === $confirmPassword) {
+            // Zaktualizuj hasło użytkownika w bazie danych
             // ...
         }
 
-
+        // Przekieruj z powrotem na stronę profilu
         header('Location: /phploginform/profile');
         exit();
     } else {
@@ -125,8 +129,6 @@ Route::add('/logout', function() {
     }
     $s->display('logout.tpl');
 });
-define('BASE_URL', '/phploginform');
-$s->assign('BASE_URL', BASE_URL);
 
 Route::run('/phploginform');
 ?>

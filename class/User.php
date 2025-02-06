@@ -10,18 +10,23 @@ class User
 
     public function __construct(string $email, string $password)
     {
-      
+        // Otwieramy połączenie do bazy danych
         $db = new mysqli("localhost", "root", "", "phploginform");
 
+        // Przygotowujemy zapytanie
         $sql = "SELECT * FROM user WHERE email='$email' LIMIT 1";
 
- 
+        // Wysyłamy zapytanie do bazy
         $result = $db->query($sql);
 
         if ($result->num_rows == 1) {
+            // Znaleźliśmy jednego użytkownika
+            // Wyciągamy dane z tego użytkownika
             $row = $result->fetch_assoc();
 
+            // Sprawdzamy, czy hasło podane w formularzu pasuje do hasła z bazy
             if (password_verify($password, $row['password'])) {
+                // Zapisujemy dane z bazy do lokalnych zmiennych obiektu
                 $this->id = $row['id'];
                 $this->email = $row['email'];
                 $this->firstName = $row['firstname'];
@@ -30,14 +35,17 @@ class User
                 $this->profilePicture = $row['profilepicture'] ?? null;
                 $db->close();
             } else {
+                // Niepoprawne hasło
                 die("Błąd konstruktora - niepoprawne hasło");
             }
         } else {
+            // Nie ma takiego użytkownika
             die("Błąd konstruktora - nie ma takiego użytkownika");
         }
     }
 
     public function login() {
+        // Metoda login() jest teraz zintegrowana z konstruktorem
         return isset($this->id);
     }
 
@@ -69,16 +77,17 @@ class User
     }
 
     public static function register(string $email, string $password, string $firstName = "", string $lastName = "", string $birthDate = "", string $profilePicture = "") {
-
+        // Otwieramy połączenie do bazy danych
         $db = new mysqli("localhost", "root", "", "phploginform");
 
+        // Zaszyfruj hasło używając argon2i
         $password = password_hash($password, PASSWORD_ARGON2I);
 
- 
+        // Przygotuj kwerendę
         $sql = "INSERT INTO user (email, password, firstname, lastname, birthdate, profilepicture) 
                 VALUES ('$email','$password','$firstName','$lastName','$birthDate','$profilePicture')";
 
-
+        // Wyślij kwerendę do bazy
         $db->query($sql);
     }
 }
